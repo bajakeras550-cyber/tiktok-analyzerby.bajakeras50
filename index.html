@@ -3,429 +3,138 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#080a12">
-  <title>AVEDOW TikTok Analyzer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AVEDOW AUDIO — TikTok Analyzer</title>
   <style>
-    :root {
-      --bg: #080a12;
-      --panel: #111522;
-      --blue: #00c8ff;
-      --red: #ff3158;
-      --text: #f4f7ff;
-      --muted: #929bb1;
-    }
-
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
-      background:
-        radial-gradient(ellipse at top left, #14243a 0, transparent 45%),
-        var(--bg);
-      color: var(--text);
-      font-family: Arial, sans-serif;
-      min-height: 100vh;
-    }
-
-    header {
-      padding: 24px 18px;
-      border-bottom: 1px solid #222b3c;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .logo {
-      font-size: 20px;
-      font-weight: 900;
-      letter-spacing: 1px;
-    }
-
-    .logo span { color: var(--blue); }
-
-    .status {
-      color: var(--blue);
-      font-size: 11px;
-      border: 1px solid #00c8ff55;
-      padding: 7px 10px;
-      border-radius: 20px;
-    }
-
-    main {
-      max-width: 850px;
-      margin: auto;
-      padding: 24px 16px 45px;
-    }
-
-    .hero { margin-bottom: 24px; }
-
-    .hero h1 {
-      font-size: clamp(27px, 6vw, 42px);
-      margin: 8px 0;
-      line-height: 1.15;
-    }
-
-    .hero h1 span {
-      color: var(--blue);
-      text-shadow: 0 0 18px #00c8ff44;
-    }
-
-    .hero p, .muted {
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 14px;
-    }
-
-    .panel {
-      background: linear-gradient(145deg, #141a29, #0d101a);
-      border: 1px solid #263047;
-      border-radius: 18px;
       padding: 20px;
-      margin-bottom: 18px;
-      box-shadow: 0 12px 35px #0003;
+      background: #0b0b12;
+      color: #fff;
+      font-family: Arial, sans-serif;
     }
-
-    label {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 13px;
-      color: #c4ccdc;
+    .container { max-width: 480px; margin: auto; }
+    h1 { color: #00f0ff; }
+    .card {
+      background: #171722;
+      border: 1px solid #303044;
+      border-radius: 16px;
+      padding: 18px;
+      margin: 15px 0;
     }
-
-    .search-row {
-      display: flex;
-      gap: 10px;
+    label { display: block; margin: 12px 0 6px; }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 9px;
+      border: 1px solid #414158;
+      font-size: 16px;
     }
-
-    input {
-      min-width: 0;
-      flex: 1;
-      background: #080c15;
-      color: white;
-      border: 1px solid #303c52;
-      border-radius: 10px;
-      padding: 14px;
-      font-size: 15px;
-      outline: none;
-    }
-
-    input:focus { border-color: var(--blue); }
-
+    input { background: #0c0c14; color: white; }
     button {
+      background: #00e5ff;
+      color: #080812;
+      font-weight: bold;
       border: 0;
+      margin-top: 16px;
       cursor: pointer;
-      border-radius: 10px;
-      padding: 14px 17px;
-      background: linear-gradient(110deg, var(--blue), #4788ff);
-      color: #07101b;
-      font-weight: 800;
     }
-
-    button:active { transform: scale(.98); }
-
-    .notice {
-      margin-top: 12px;
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .profile {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 22px;
-    }
-
-    .avatar {
-      width: 58px;
-      height: 58px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--red), var(--blue));
-      display: grid;
-      place-items: center;
-      color: white;
-      font-size: 24px;
-      font-weight: 900;
-      box-shadow: 0 0 22px #00c8ff22;
-    }
-
-    .profile h2 { margin: 0 0 5px; font-size: 19px; }
-    .profile p { margin: 0; color: var(--muted); font-size: 13px; }
-
-    .demo {
-      font-size: 10px;
-      color: #ffb85c;
-      border: 1px solid #ffb85c55;
-      padding: 5px 8px;
-      border-radius: 8px;
-      margin-left: auto;
-      white-space: nowrap;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .stat {
-      background: #090d17;
-      border: 1px solid #232e43;
-      padding: 17px 14px;
-      border-radius: 13px;
-    }
-
-    .stat .label {
-      color: var(--muted);
-      font-size: 12px;
-      margin-bottom: 10px;
-    }
-
-    .stat .value {
-      font-size: clamp(21px, 5vw, 28px);
-      font-weight: 800;
-      overflow-wrap: anywhere;
-    }
-
-    .blue { color: var(--blue); }
-    .red { color: var(--red); }
-
-    .section-title {
-      font-size: 17px;
-      margin: 0 0 15px;
-    }
-
-    .bar-bg {
-      height: 9px;
-      background: #252c3b;
-      border-radius: 20px;
-      overflow: hidden;
-      margin: 14px 0;
-    }
-
-    .bar {
-      height: 100%;
-      width: 0;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--red), var(--blue));
-      transition: width .5s;
-    }
-
-    .tip {
-      padding: 14px;
-      background: #00c8ff0b;
-      border-left: 3px solid var(--blue);
-      border-radius: 5px;
-      color: #d5e7f7;
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    .hidden { display: none; }
-
-    footer {
-      text-align: center;
-      padding: 22px;
-      border-top: 1px solid #202738;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.8;
-    }
-
-    @media (min-width: 600px) {
-      .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-      main { padding-top: 38px; }
-    }
-
-    @media (max-width: 390px) {
-      .search-row { flex-direction: column; }
-      .search-row button { width: 100%; }
-      .demo { font-size: 9px; }
-      .panel { padding: 15px; }
-    }
+    .number { font-size: 28px; font-weight: bold; color: #00f0ff; }
+    .muted { color: #aaa; font-size: 13px; }
+    .error { color: #ff7777; }
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">AVEDOW <span>ANALYZER</span></div>
-    <div class="status">● SYSTEM ONLINE</div>
-  </header>
+  <div class="container">
+    <h1>AVEDOW AUDIO</h1>
+    <p>TikTok Account Analyzer</p>
 
-  <main>
-    <section class="hero">
-      <p class="blue">SOCIAL MEDIA ANALYTICS</p>
-      <h1>Analyze Your<br><span>TikTok Account.</span></h1>
-      <p>Dashboard analisis akun dengan gaya neon futuristik.</p>
-    </section>
+    <div class="card">
+      <h3>Masukkan data akun</h3>
+      <label>Username TikTok</label>
+      <input id="username" placeholder="@username">
 
-    <section class="panel">
-      <label for="username">USERNAME TIKTOK</label>
-      <div class="search-row">
-        <input id="username" placeholder="@username" maxlength="100"
-               autocomplete="off">
-        <button id="analyze">Analisis</button>
-      </div>
-      <div class="notice">
-        Mode demo: memasukkan username tidak mengambil data TikTok asli.
-      </div>
-    </section>
+      <label>Followers asli</label>
+      <input id="followers" type="number" min="0"
+             step="1" placeholder="Contoh: 1000">
 
-    <section id="results" class="panel">
-      <div class="profile">
-        <div class="avatar" id="avatar">A</div>
-        <div>
-          <h2 id="displayName">AVEDOW ANALYZER</h2>
-          <p id="handle">@contoh_akun</p>
-        </div>
-        <span class="demo">DATA DEMO</span>
-      </div>
+      <label>Total likes</label>
+      <input id="likes" type="number" min="0"
+             step="1" placeholder="Contoh: 15000">
 
-      <div class="stats">
-        <div class="stat">
-          <div class="label">FOLLOWERS</div>
-          <div class="value blue" id="followers">12.5K</div>
-        </div>
-        <div class="stat">
-          <div class="label">LIKES</div>
-          <div class="value red" id="likes">85.2K</div>
-        </div>
-        <div class="stat">
-          <div class="label">JUMLAH VIDEO</div>
-          <div class="value" id="videos">48</div>
-        </div>
-        <div class="stat">
-          <div class="label">ENGAGEMENT</div>
-          <div class="value blue" id="engagement">5.8%</div>
-        </div>
-      </div>
-    </section>
+      <label>Views video</label>
+      <input id="views" type="number" min="0"
+             step="1" placeholder="Contoh: 5000">
 
-    <section class="panel">
-      <h3 class="section-title">Engagement Calculator</h3>
-      <p class="muted">
-        Masukkan jumlah likes, komentar, shares, dan followers
-        untuk menghitung engagement rate secara manual.
-      </p>
+      <button onclick="analyze()">ANALISIS AKUN</button>
+      <p class="muted">Mode manual — bukan data live dari TikTok.</p>
+    </div>
 
-      <label for="calcLikes">Likes</label>
-      <input id="calcLikes" type="number" min="0" value="580">
-
-      <label for="calcComments" style="margin-top:14px">Komentar</label>
-      <input id="calcComments" type="number" min="0" value="75">
-
-      <label for="calcShares" style="margin-top:14px">Shares</label>
-      <input id="calcShares" type="number" min="0" value="45">
-
-      <label for="calcFollowers" style="margin-top:14px">Followers</label>
-      <input id="calcFollowers" type="number" min="1" value="10000">
-
-      <button id="calculate" style="width:100%; margin-top:16px">
-        Hitung Engagement
-      </button>
-
-      <div class="bar-bg"><div id="bar" class="bar"></div></div>
-      <h2 id="rate" class="blue">6.00%</h2>
-      <p id="formula" class="muted">
-        (Likes + komentar + shares) ÷ followers × 100
-      </p>
-    </section>
-
-    <section class="panel">
-      <h3 class="section-title">Analisis & Tips</h3>
-      <div class="tip" id="tips">
-        Masukkan data statistik akunmu ke kalkulator untuk mendapatkan
-        gambaran engagement. Hasil ini bukan jaminan pertumbuhan followers.
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <strong>AVEDOW TIKTOK ANALYZER</strong><br>
-    Neon Analytics Interface · Versi 1.0<br>
-    Bukan aplikasi resmi atau afiliasi TikTok.
-  </footer>
+    <div class="card" id="result" hidden>
+      <h3 id="account"></h3>
+      <p>Followers</p>
+      <div class="number" id="fResult">0</div>
+      <p>Total likes</p>
+      <div class="number" id="lResult">0</div>
+      <p>Views video</p>
+      <div class="number" id="vResult">0</div>
+      <p>Rasio likes terhadap views</p>
+      <div class="number" id="engagement">0%</div>
+      <p class="muted">Angka mengikuti input yang kamu masukkan.</p>
+    </div>
+  </div>
 
   <script>
-    const $ = id => document.getElementById(id);
+    function analyze() {
+      const username =
+        document.getElementById("username").value.trim();
+      const followersInput =
+        document.getElementById("followers").value;
+      const likesInput =
+        document.getElementById("likes").value;
+      const viewsInput =
+        document.getElementById("views").value;
 
-    // Dashboard ini menggunakan data demo, bukan API TikTok.
-    $("analyze").addEventListener("click", () => {
-      const raw = $("username").value.trim().replace(/^@+/, "");
-
-      if (!raw) {
-        alert("Masukkan username TikTok terlebih dahulu.");
-        $("username").focus();
+      if (
+        !username ||
+        followersInput === "" ||
+        likesInput === "" ||
+        viewsInput === ""
+      ) {
+        alert("Isi semua data dulu, bro!");
         return;
       }
 
-      if (!/^[a-zA-Z0-9._]+$/.test(raw)) {
-        alert("Username hanya boleh berisi huruf, angka, titik, dan underscore.");
+      const followers = Number(followersInput);
+      const likes = Number(likesInput);
+      const views = Number(viewsInput);
+
+      if (
+        !Number.isSafeInteger(followers) || followers < 0 ||
+        !Number.isSafeInteger(likes) || likes < 0 ||
+        !Number.isSafeInteger(views) || views < 0
+      ) {
+        alert("Masukkan angka bulat yang valid.");
         return;
       }
 
-      $("displayName").textContent = raw;
-      $("handle").textContent = "@" + raw;
-      $("avatar").textContent = raw.charAt(0).toUpperCase();
+      document.getElementById("account").textContent =
+        username.startsWith("@") ? username : "@" + username;
 
-      // Angka statistik tetap demo sampai API resmi dihubungkan.
-      $("followers").textContent = "12.5K";
-      $("likes").textContent = "85.2K";
-      $("videos").textContent = "48";
-      $("engagement").textContent = "5.8%";
+      document.getElementById("fResult").textContent =
+        followers.toLocaleString("id-ID");
+      document.getElementById("lResult").textContent =
+        likes.toLocaleString("id-ID");
+      document.getElementById("vResult").textContent =
+        views.toLocaleString("id-ID");
 
-      $("results").scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    });
+      const rate = views > 0 ? (likes / views) * 100 : 0;
+      document.getElementById("engagement").textContent =
+        rate.toFixed(2) + "%";
 
-    function calculate() {
-      const ids = [
-        "calcLikes", "calcComments", "calcShares", "calcFollowers"
-      ];
-
-      const values = ids.map(id => Number($(id).value));
-
-      if (values.some(v => !Number.isFinite(v) || v < 0) ||
-          values[3] <= 0) {
-        alert("Masukkan angka yang valid. Followers harus lebih dari nol.");
-        return;
-      }
-
-      const [likes, comments, shares, followers] = values;
-      const rate = ((likes + comments + shares) / followers) * 100;
-
-      $("rate").textContent = rate.toFixed(2) + "%";
-      $("bar").style.width = Math.min(rate, 100) + "%";
-      $("formula").textContent =
-        `(${likes} + ${comments} + ${shares}) ÷ ${followers} × 100`;
-
-      if (rate < 2) {
-        $("tips").textContent =
-          "Engagement terhitung di bawah 2%. Coba evaluasi topik, " +
-          "kualitas konten, dan interaksi audiens. Ini hanya patokan umum.";
-      } else if (rate < 5) {
-        $("tips").textContent =
-          "Engagement terhitung 2–5%. Evaluasi konten yang paling " +
-          "menarik dan perhatikan respons audiens.";
-      } else {
-        $("tips").textContent =
-          "Engagement terhitung 5% atau lebih. Bandingkan beberapa " +
-          "video dan periode untuk melihat pola performa.";
-      }
+      document.getElementById("result").hidden = false;
     }
-
-    $("calculate").addEventListener("click", calculate);
-
-    $("username").addEventListener("keydown", event => {
-      if (event.key === "Enter") $("analyze").click();
-    });
-
-    calculate();
   </script>
 </body>
-          </html>
-          
+</html>
